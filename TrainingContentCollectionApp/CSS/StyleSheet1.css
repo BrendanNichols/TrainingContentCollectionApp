@@ -1,0 +1,80 @@
+﻿.leftColumn {
+    font-family:Arial;
+}
+div.mine{
+    display:inline;
+    vertical-align:middle;
+}
+div.a{
+    vertical-align:top;
+}
+a.myDropDownItems:hover{
+    background-color:#717074;
+}
+div.odd {
+    background-color: #d6d5d6;
+}
+div.even {
+    background-color: #a7a7a8;
+}
+div.myWell{
+    border-radius:6px;
+    margin-bottom:4px;
+    margin-left:4px;
+    
+    padding:6px;
+}
+div.myWell:hover{
+    background-color: #717074;
+}
+div.myWellItems{
+    margin-right:20px;
+}
+div.myBtnGroup{
+    padding-left:4px;
+    padding-right:18px;
+}
+.textInput{
+    
+    min-height:300px;    
+}
+.myAddBtn{
+    color:lawngreen;
+    
+}
+.myDeleteBtn{    
+    color:red;
+}
+div.elementBlock{
+    background-color:aliceblue;
+    margin-bottom:5px;
+    border-top-right-radius:30px;
+    border-bottom-left-radius:30px;    
+}
+
+.rightPanel{
+    background-color:#f25a2a;
+    border-radius: 10px;
+    min-height:505px;
+    padding-top: 10px;
+    font-family:Arial;
+}
+.btn{
+    background-color:#0033a0;
+}
+.whiteText{
+    color:white;
+}
+
+.myForm{
+    margin-top:10px;
+    padding-top:10px;
+    font-family:Arial;
+}
+
+.myPageHeader{
+    background-color:aliceblue;
+    border-top-right-radius:30px;
+    border-bottom-left-radius:30px; 
+    padding:10px;
+}
