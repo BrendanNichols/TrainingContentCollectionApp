@@ -1,30 +1,15 @@
 ﻿angular.module('app')
     .controller('formController', formController);
 
-formController.$inject = ['$scope', '$stateParams', '$state', 'Main', 'TypesFactory', 'SessionsFactory', 'UsersFactory', 'ElementFactory', 'ElementTypesFactory', 'ElementCategoryFactory'];
+formController.$inject = ['$scope', '$stateParams', '$state', 'Main', 'TypesFactory', 'SessionsFactory', 'UsersFactory', 'ElementFactory', 'ElementTypesFactory', 'ElementCategoryFactory','FileFactory'];
 
 
-function formController($scope, $stateParams, $state, Main, TypesFactory, SessionsFactory, UsersFactory, ElementFactory, ElementTypesFactory, ElementCategoryFactory) {
+function formController($scope, $stateParams, $state, Main, TypesFactory, SessionsFactory, UsersFactory, ElementFactory, ElementTypesFactory, ElementCategoryFactory, FileFactory) {
     console.log('in form controller');
     console.log($stateParams.Page);
     $scope.rightPanelOn = false;
     init($scope, $stateParams, $state, Main, TypesFactory, SessionsFactory, UsersFactory, ElementFactory, ElementTypesFactory, ElementCategoryFactory);
-
-    $scope.setInputClass = function (typeName) {
-        //console.log('typename = ' + typeName);
-        if (typeName =='Link') {
-            return 'linkInput';
-        }
-        else if (typeName == 'Video') {
-            return 'videoInput';
-        }
-        else if (typeName == 'Image') {
-            return 'imageInput';
-        }
-        else {
-            return 'textInput';
-        }
-    };
+    
 
     $scope.categorySelect = function (categoryID, categoryName, elemDiv) {
         elemDiv.ElementCategoryId = categoryID;
@@ -153,10 +138,12 @@ function formController($scope, $stateParams, $state, Main, TypesFactory, Sessio
     $scope.savePage = function () {
         console.log($scope.elementDivs)
         if ($scope.selectedUser.Name != 'Select User') {
-            createNewSession($scope, $stateParams, SessionsFactory, ElementFactory);
+            createNewSession($scope, $stateParams, SessionsFactory, ElementFactory, FileFactory);
             $scope.NewUserThank = false;
             $scope.SavePageThank = true;
             $scope.ExistingUser = false;
+            
+            
         }
     }
     $scope.textCheck = function (elementTypeId) {
@@ -175,6 +162,9 @@ function formController($scope, $stateParams, $state, Main, TypesFactory, Sessio
         if (elementTypeId == 3) {
             return true;
         }
+        if (elementTypeId == 6) {
+            return true;
+        }
         else {
             return false;
         }
@@ -188,9 +178,26 @@ function formController($scope, $stateParams, $state, Main, TypesFactory, Sessio
         }
     }
 
+    
+
+    $scope.getTheFiles = function ($files, e) {
+        var formdata = new FormData();
+        console.log($files);
+        angular.forEach($files, function (value, key) {            
+            formdata.append(key, value);
+        });
+        console.log(formdata);
+        e.formdata = formdata;
+        e.Content = $files[0].name;
+        console.log(e.Content);
+    };
+
+    // NOW UPLOAD THE FILES.
+    
 };
 
-var postDivElements= function($scope, ElementFactory){
+
+var postDivElements= function($scope, ElementFactory,FileFactory){
     for (var i=0; i <$scope.elementDivs.length; i++)
     {
         console.log($scope.elementDivs[i]);
@@ -205,10 +212,23 @@ var postDivElements= function($scope, ElementFactory){
         .then(function (response) {
             console.log(response.data)
         })
+        if($scope.elementDivs[i].formdata != null)
+        {
+            if ($scope.elementDivs[i].ElementTypeId == 2) {
+                FileFactory.postImage($scope.elementDivs[i].formdata);
+            }
+            if ($scope.elementDivs[i].ElementTypeId == 3) {
+                FileFactory.postVideo($scope.elementDivs[i].formdata);
+            }
+            if ($scope.elementDivs[i].ElementTypeId == 6) {
+                FileFactory.postFile($scope.elementDivs[i].formdata);
+            }
+        }
+
     }
 }
 
-var createNewSession = function ($scope, $stateParams,SessionsFactory, ElementFactory) {
+var createNewSession = function ($scope, $stateParams,SessionsFactory, ElementFactory,FileFactory) {
     var date = new Date();
     var cleanDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes();
 
@@ -225,7 +245,7 @@ var createNewSession = function ($scope, $stateParams,SessionsFactory, ElementFa
         $scope.newSession = response.data;
         console.log("creating new session");
         console.log($scope.newSession.Id);
-        postDivElements($scope, ElementFactory)
+        postDivElements($scope, ElementFactory,FileFactory)
         
     })
 }

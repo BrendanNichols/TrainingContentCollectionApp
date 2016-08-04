@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="../angular.js" />
+
 var mainServices = angular.module('mainServices', []);
 
 var baseUrl = 'http://localhost:56444/api/'
@@ -127,6 +128,66 @@ mainServices.factory('ElementCategoryFactory', ['$http',
         }
     }
 ]);
+
+mainServices.factory('FileFactory', ['$http',
+    function ($http) {
+        return {
+            postImage: function (formdata) {
+                var request = {
+                    method: 'POST',
+                    url: baseUrl + 'Images',
+                    data: formdata,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                };                
+                $http(request)
+                    .success(function (d) {
+                        console.log(d);
+                    })
+                    .error(function (request) {
+                        console.log(request.error);
+                    });
+            },
+
+            postVideo: function (formdata) {
+            var request = {
+                method: 'POST',
+                url: baseUrl + 'Videos',
+                data: formdata,
+                headers: {
+                    'Content-Type': undefined
+                }
+            };                
+            $http(request)
+                .success(function (d) {
+                    console.log(d);
+                })
+                .error(function (request) {
+                    console.log(request.error);
+                });
+            },
+
+            postFile: function (formdata) {
+                var request = {
+                    method: 'POST',
+                    url: baseUrl + 'Files',
+                    data: formdata,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                };                
+                $http(request)
+                    .success(function (d) {
+                        console.log(d);
+                    })
+                    .error(function (request) {
+                        console.log(request.error);
+                    });
+            }
+        }
+    }
+])
 
 //angular.module('app')
 //.factory('PageFactory', ['$http',

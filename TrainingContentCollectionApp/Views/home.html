@@ -9,7 +9,7 @@
             <button id="single-button" type="button" class="btn btn-primary col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px" uib-dropdown-toggle ng-disabled="disabled">
                 Page Types <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" uib-dropdown-menu isopen="status.isopen" aria-labelledby="single-button">
+            <ul class="dropdown-menu" uib-dropdown-menu isopen="status.isopen" aria-labelledby="single-button" style="margin-right:18px; margin-left:4px">
                 <li class="col-lg-12 col-md-12 col-md-12 col-xs-12" ng-repeat="T in pageTypes | orderBy:'Id'" ng-click="typeSelect(T)" style="cursor:pointer; ">
                     <a class="myDropdownItems" style="font-size:medium">{{T.Name}}</a>
                 </li>
