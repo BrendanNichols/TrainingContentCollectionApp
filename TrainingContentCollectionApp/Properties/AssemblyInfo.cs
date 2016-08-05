@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("TrainingContentCollectionApp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("BECKGROUP")]
 [assembly: AssemblyProduct("TrainingContentCollectionApp")]
-[assembly: AssemblyCopyright("Copyright © BECKGROUP 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
