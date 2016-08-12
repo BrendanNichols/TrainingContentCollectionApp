@@ -28,6 +28,5 @@ C:\Users\brendannichols\Documents\Visual Studio 2015\Projects\TrainingContentCol
 C:\Users\brendannichols\Documents\Visual Studio 2015\Projects\TrainingContentCollectionApp\TrainingContentCollectionApp\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\brendannichols\Documents\Visual Studio 2015\Projects\TrainingContentCollectionApp\TrainingContentCollectionApp\bin\Microsoft.ApplicationInsights.xml
 C:\Users\brendannichols\Documents\Visual Studio 2015\Projects\TrainingContentCollectionApp\TrainingContentCollectionApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\brendannichols\Documents\Visual Studio 2015\Projects\TrainingContentCollectionApp\TrainingContentCollectionApp\obj\Debug\TrainingContentCollectionApp.csprojResolveAssemblyReference.cache
 C:\Users\brendannichols\Documents\Visual Studio 2015\Projects\TrainingContentCollectionApp\TrainingContentCollectionApp\obj\Debug\TrainingContentCollectionApp.dll
 C:\Users\brendannichols\Documents\Visual Studio 2015\Projects\TrainingContentCollectionApp\TrainingContentCollectionApp\obj\Debug\TrainingContentCollectionApp.pdb

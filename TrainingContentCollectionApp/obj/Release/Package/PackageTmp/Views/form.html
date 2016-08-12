@@ -1,0 +1,124 @@
+﻿<div class="col-lg-9 col-md-12 col-md-12 col-xs-12 myForm" >
+
+
+    <h1 class="myPageHeader" style="text-align:center">{{selectedPage.ParsedName}}</h1>
+
+
+    <div align="right">        
+        <div class="btn-group" uib-dropdown>            
+            <button  id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-click="formFinishedBtn()">
+                I'm good to go!  <span class="glyphicon glyphicon-menu-right"></span>
+            </button>
+        </div>
+    </div>
+
+    
+    <div ng-repeat="e in elementDivs| orderBy:'Order'" >
+        <div class="elementBlock">
+            <div>
+                <div class="btn-group" uib-dropdown>
+                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-click="moveElemUp(e)">
+                        <span class="glyphicon glyphicon-menu-up"></span>
+                    </button>
+                </div>
+                <div class="btn-group" uib-dropdown>
+                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-click="moveElemDown(e)">
+                        <span class="glyphicon glyphicon-menu-down"></span>
+                    </button>
+                </div>
+                <div class="btn-group" uib-dropdown>
+                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-class="e.ElementCategoryName">
+                        {{e.ElementCategoryName}}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                        <li role="menuitem" ng-repeat="c in elementCategories" ng-click="categorySelect(c.Id, c.Name, e)">
+                            <a class="myDropDownItems">{{c.Name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn-group" uib-dropdown>
+                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-class="e.ElementTypeName">
+                        {{e.ElementTypeName}}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                        <li role="menuitem" ng-repeat="t in elementTypes" ng-click="typeSelect(t.Id, t.Name, e)">
+                            <a class="myDropDownItems">{{t.Name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <textarea class="col-lg-12 col-md-12 col-sm-12 col-xs-12 textInput"  ng-show="textCheck(e.ElementTypeId)" ng-model="e.Content"></textarea> 
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px"  ng-show="fileUploadCheck(e.ElementTypeId)">      
+                    <input class="col-lg-12 col-md-12 col-sm-12 col-xs-12" type="file" ng-files="getTheFiles($files,e)" style="padding:0px" value="{{e.Content}}"/>                
+                    <div align="right">{{e.Content}}</div>       
+                </div>
+                <input class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="linkCheck(e.ElementTypeId)" ng-model="e.Content">
+            </div>
+
+            <div align="right">
+                <div class="btn-group"  uib-dropdown>
+                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-click="addElementDiv(e)">
+                        Add  <span class="glyphicon glyphicon-plus myAddBtn"></span>
+                    </button>
+                </div>
+                <div class="btn-group" uib-dropdown>
+                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-click="deleteElementDiv(e)">
+                        Delete <span class="glyphicon glyphicon-remove myDeleteBtn"></span>
+                    </button>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+
+</div>
+
+<div class="rightPanel col-lg-3 col-md-6 col-sm-12 col-xs-12" align="right" ng-show="rightPanelOn">
+    <div class="btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px" uib-dropdown>
+        <button id="single-button" type="button" class="btn btn-primary col-lg-8 col-md-8 col-sm-8 col-xs-8" uib-dropdown-toggle ng-disabled="disabled">
+            {{selectedUser.Name}}<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu col-lg-9 col-md-9 col-sm-9 col-xs-9" uib-dropdown-menu role="menu">
+            <li role="menuitem" ng-repeat="u in users" ng-click="userSelect(u)">
+                <a class="myDropDownItems">{{u.Name}}</a>
+            </li>
+        </ul>
+        <button id="single-button" type="button" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4" ng-click="showNewUser()">
+            I'm new
+        </button>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px" uib-dropdown>        
+        <div ng-show="NewUser.Active">
+            <h4 class="whiteText" align="left">Welcome, lets get a little information from you</h4>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px">
+                <h4 class="whiteText" align="left">Name:</h4>
+                <div  style="padding:0px" align="left">  
+                    <input class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-model="NewUser.Name" /> 
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px">
+                <h4 class="whiteText" align="left">Email:</h4>
+                <div style="padding:0px" align="left">
+                    <input class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  ng-model="NewUser.Email" /> 
+                </div>                
+            </div>
+            <button id="single-button" type="button" class="btn btn-primary col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-click="newUserSubmit()">
+                Submit
+            </button>
+        </div>
+        <div ng-show="ExistingUser">
+            <h4 align="left" class="whiteText"> Welcome back</h4>
+            <h4 align="left" class="whiteText"> {{selectedUser.Name}}!</h4>
+        </div>
+        <div ng-show="NewUserThank">
+            <h4 align="left" class="whiteText">Thanks {{NewUser.Name}}!</h4>
+            <h5 align="center" class="whiteText">We'll remember you for next time</h5>
+        </div>        
+    </div>
+    <button style="margin-top:30px" id="single-button" type="button" class="btn btn-primary col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-click="savePage()">
+        Save Changes
+    </button>
+    <div ng-show="SavePageThank" style="margin-top:10px">
+        <h4 align="left" class="whiteText">Thanks {{selectedUser.Name}}!</h4>
+        <h4 align="left" class="whiteText" >Your new information has been saved and will be used to train the rest of Beck's employees</h4>
+    </div>
+</div>

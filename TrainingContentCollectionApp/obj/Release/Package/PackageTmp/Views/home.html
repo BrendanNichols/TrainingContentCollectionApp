@@ -1,0 +1,40 @@
+﻿<div ng-controller="mainController" ng-model="leftColumn" class="leftColumn">
+    <div class="row">        
+        <H1 class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="text-align:center">Select Page Type</H1>
+    </div>
+
+
+    <div class="row col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+        <div class="btn-group myBtnGroup col-lg-12 col-md-12 col-sm-12 col-xs-12"uib-dropdown is-open="status.isopen" >
+            <button id="single-button" type="button" class="btn btn-primary col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px" uib-dropdown-toggle ng-disabled="disabled">
+                Page Types <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu isopen="status.isopen" aria-labelledby="single-button" style="margin-right:18px; margin-left:4px">
+                <li class="col-lg-12 col-md-12 col-md-12 col-xs-12" ng-repeat="T in pageTypes | orderBy:'Id'" ng-click="typeSelect(T)" style="cursor:pointer; ">
+                    <a class="myDropdownItems" style="font-size:medium">{{T.Name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div >
+            <div ng-repeat="p in pages | orderBy: 'PageTypeId'" >
+                <div  class="myWellItems" ng-click="goToFormState(p)" isSelected="well.is">
+                    <div ng-class="$even ? 'odd': 'even'" class="well well-sm myWell col-lg-12 col-md-12 col-md-12 col-xs-12">
+                        <h5 style="font-size:large; text-align:center; ">{{p.ParsedName}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>     
+       
+    <div ui-view class="col-lg-9 col-md-8 col-sm-12 col-xs-12" ></div> 
+
+</div>
+               
+                    
+
+
+        
+    
+
+
+
