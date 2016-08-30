@@ -1,5 +1,5 @@
 ﻿(function () {
-    var app = angular.module('app', ['ngResource', 'ui.router', 'mainServices','ui.bootstrap']);
+    var app = angular.module('app', ['ngResource', 'ui.router', 'mainServices', 'ui.bootstrap', 'colorpicker.module','wysiwyg.module']);
     console.log("in main module");
     app.config(['$stateProvider', '$urlRouterProvider', '$resourceProvider', function ($stateProvider, $urlRouterProvider, $resourceProvider) {
         $resourceProvider.defaults.stripTrailingSlashes = false;

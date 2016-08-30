@@ -10,6 +10,15 @@ function formController($scope, $stateParams, $state, Main, TypesFactory, Sessio
     $scope.rightPanelOn = false;
     init($scope, $stateParams, $state, Main, TypesFactory, SessionsFactory, UsersFactory, ElementFactory, ElementTypesFactory, ElementCategoryFactory);
     
+    $scope.menu = [
+        ['bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript'],
+        ['format-block'],              
+        ['remove-format'],
+        ['ordered-list', 'unordered-list', 'outdent', 'indent'],        
+        ['code', 'quote', 'paragraph'],       
+        
+    ];
+
 
     $scope.categorySelect = function (categoryID, categoryName, elemDiv) {
         elemDiv.ElementCategoryId = categoryID;
@@ -138,10 +147,9 @@ function formController($scope, $stateParams, $state, Main, TypesFactory, Sessio
     $scope.savePage = function () {
         console.log($scope.elementDivs)
         if ($scope.selectedUser.Name != 'Select User') {
-            createNewSession($scope, $stateParams, SessionsFactory, ElementFactory, FileFactory);
-            $scope.NewUserThank = false;
-            $scope.SavePageThank = true;
-            $scope.ExistingUser = false;
+            createNewSession($scope, $stateParams, SessionsFactory, ElementFactory, FileFactory)
+                $scope.NewUserThank = false;                
+                $scope.ExistingUser = false;          
             
             
         }
@@ -191,10 +199,32 @@ function formController($scope, $stateParams, $state, Main, TypesFactory, Sessio
         e.Content = $files[0].name;
         console.log(e.Content);
     };
-
+    $scope.uploadCount = 0;
+    $scope.uploadComplete = false;
     // NOW UPLOAD THE FILES.
     
+    $scope.uploadCompleteCheck = function () {
+        if ($scope.uploadingFiles == true && $scope.uploadCount == 0) {
+            //$scope.uploadingFiles = false;
+            $scope.uploadComplete = true;
+            $scope.SavePageThank = true;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    $scope.uploadingFilesCheck = function () {
+        if ($scope.uploadingFiles == true && $scope.uploadComplete != true)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 };
+
 
 
 var postDivElements= function($scope, ElementFactory,FileFactory){
@@ -214,18 +244,37 @@ var postDivElements= function($scope, ElementFactory,FileFactory){
         })
         if($scope.elementDivs[i].formdata != null)
         {
+            $scope.uploadCount = $scope.uploadCount + 1;
+            console.log("inside formdata uploading");
+            $scope.uploadingFiles = true;
             if ($scope.elementDivs[i].ElementTypeId == 2) {
-                FileFactory.postImage($scope.elementDivs[i].formdata, $scope.selectedPage.Id);
+                FileFactory.postImage($scope.elementDivs[i].formdata, $scope.selectedPage.Id).success(function (response) {
+                    console.log("fileupload response returned");
+                    $scope.uploadCount = $scope.uploadCount - 1;                    
+                });                
             }
             if ($scope.elementDivs[i].ElementTypeId == 3) {
-                FileFactory.postVideo($scope.elementDivs[i].formdata, $scope.selectedPage.Id);
+                FileFactory.postVideo($scope.elementDivs[i].formdata, $scope.selectedPage.Id).success(function (response) {
+                    console.log("fileupload response returned");
+                    $scope.uploadCount = $scope.uploadCount - 1;
+                    
+                });
             }
             if ($scope.elementDivs[i].ElementTypeId == 5) {
-                FileFactory.postFile($scope.elementDivs[i].formdata, $scope.selectedPage.Id);
+                FileFactory.postFile($scope.elementDivs[i].formdata, $scope.selectedPage.Id).success(function(response){
+                    console.log("fileupload response returned");
+                    $scope.uploadCount = $scope.uploadCount - 1;                    
+                });
             }
-        }
+        }        
+    }
+    if ($scope.uploadingFiles == true) {
 
     }
+    else {
+        $scope.SavePageThank = true;
+    }
+    console.log("after iterating through divelems");    
 }
 
 var createNewSession = function ($scope, $stateParams,SessionsFactory, ElementFactory,FileFactory) {

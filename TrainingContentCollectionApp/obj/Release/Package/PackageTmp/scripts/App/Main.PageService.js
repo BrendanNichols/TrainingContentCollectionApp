@@ -133,57 +133,39 @@ mainServices.factory('FileFactory', ['$http',
     function ($http) {
         return {
             postImage: function (formdata, pageName) {
-                var request = {
-                    method: 'POST',
-                    url: baseUrl + 'Images/'+ pageName,
-                    data: formdata,
-                    headers: {
-                        'Content-Type': undefined
-                    }
-                };                
-                $http(request)
-                    .success(function (d) {
-                        console.log(d);
-                    })
-                    .error(function (request) {
-                        console.log(request.error);
-                    });
+            var request = {
+                method: 'POST',
+                url: baseUrl + 'ImageUpload/'+ pageName,
+                data: formdata,
+                headers: {
+                    'Content-Type': undefined
+                }
+            };
+            return $http(request);                       
             },
 
             postVideo: function (formdata, pageId) {
             var request = {
                 method: 'POST',
-                url: baseUrl + 'Videos/'+ pageId,
+                url: baseUrl + 'VideoUpload/'+ pageId,
                 data: formdata,
                 headers: {
                     'Content-Type': undefined
                 }
             };                
-            $http(request)
-                .success(function (d) {
-                    console.log(d);
-                })
-                .error(function (request) {
-                    console.log(request.error);
-                });
+            return $http(request)                
             },
 
             postFile: function (formdata, pageId) {
-                var request = {
-                    method: 'POST',
-                    url: baseUrl + 'Files/'+ pageId,
-                    data: formdata,
-                    headers: {
-                        'Content-Type': undefined
-                    }
-                };                
-                $http(request)
-                    .success(function (d) {
-                        console.log(d);
-                    })
-                    .error(function (request) {
-                        console.log(request.error);
-                    });
+            var request = {
+                method: 'POST',
+                url: baseUrl + 'FileUpload/'+ pageId,
+                data: formdata,
+                headers: {
+                    'Content-Type': undefined
+                }
+            };                
+            return $http(request)                    
             }
         }
     }
